@@ -1,19 +1,16 @@
 import System from './system';
-import MouseController from '../inputs/mouse.controller';
 import Player from '../entities/player.entity';
 import Renderable from '../components/renderable.component';
 import Movable from '../components/movable.component';
 import Transform from '../components/transform.component';
 
 class PlayerControlSystem extends System {
-  public mouseController: MouseController;
-
   public initialize() {
-    this.mouseController = new MouseController(this.game.canvas);
-    this.mouseController.on('click', () => {
+    this.game.mouseController.on('click', () => {
       console.warn('click');
       this.onClick();
     });
+
     super.initialize();
   }
 
@@ -21,7 +18,7 @@ class PlayerControlSystem extends System {
     const player = this.query('player')[0] as Player;
     const movable = player.getComponent(Movable);
 
-    movable.destination = { ...this.mouseController.click };
+    movable.destination = { ...this.game.mouseController.click };
   }
 
   public execute(dt: number) {
@@ -33,8 +30,8 @@ class PlayerControlSystem extends System {
     const posX = position.x + render.width / 2;
     const posY = position.y + render.height / 2;
 
-    const toMouseX = this.mouseController.position.x - posX;
-    const toMouseY = this.mouseController.position.y - posY;
+    const toMouseX = this.game.mouseController.position.x - posX;
+    const toMouseY = this.game.mouseController.position.y - posY;
 
     this.game.ctx.beginPath();
     this.game.ctx.moveTo(posX, posY);

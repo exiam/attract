@@ -5,10 +5,10 @@ export default abstract class Entity {
   public static tags?: string[];
 
   public id: string;
-  public components: Object[];
+  public components: { [key: string]: any };
 
   constructor() {
-    this.components = [];
+    this.components = {};
   }
   
   /**
@@ -27,7 +27,7 @@ export default abstract class Entity {
       Object.assign(component, initialValue);
     }
 
-    this.components.push(component);
+    this.components[Component.name] = component;
 
     if (this.id) {
       EventManager.dispatch('ADD_ENTITY_COMPONENT', this.id);
@@ -40,18 +40,16 @@ export default abstract class Entity {
    * Get component.
    *
    * @template T
-   * @param {IComponentConstructor<T>} componentClass
+   * @param {IComponentConstructor<T>} Component
    * @returns
    * @memberof Entity
    */
-  public getComponent<T>(componentClass: IComponentConstructor<T>) {
-    for (const component of this.components) {
-      if (component instanceof componentClass) {
-        return component;
-      }
-    }
+  public getComponent<T>(Component: IComponentConstructor<T>) {
+    return this.components[Component.name] || null;
+  }
 
-    return null;
+  public hasComponent(name: string): boolean {
+    return !!this.components[name];
   }
 
   /**

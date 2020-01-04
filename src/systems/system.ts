@@ -23,10 +23,7 @@ export default abstract class System {
     const query = (<typeof System>this.constructor).queries[queryKey];
 
     if (query.components) {
-      return this.entityManager.findByComponents(
-        query.components,
-        query.options,
-      );
+      return this.entityManager.findByComponents(query.components);
     }
 
     if (query.tags) {
