@@ -1,4 +1,5 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: process.env === 'production' ? 'production' : 'development',
@@ -20,7 +21,8 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
-    contentBase: __dirname,
+    contentBase: path.join(__dirname, 'dist'),
     port: 9000,
   },
+  plugins: [new HtmlWebpackPlugin({ template: 'index.html' })],
 };
