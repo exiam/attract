@@ -1,6 +1,6 @@
 # attract
 
-![Build and Deploy](https://github.com/exiam/attract/workflows/Build%20and%20Deploy/badge.svg)
+![Build and Deploy](https://github.com/exiam/attract/workflows/Build%20and%20Deploy/badge.svg?branch=master&event=push)
 
 JavaScript game experiment.
 
