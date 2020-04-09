@@ -1,22 +1,16 @@
-name: Build
+name: Publish
 
-on: [push]
-
-env:
-  NODE_VERSION: '12.16.1' # set this to the node version to use
+on:
+  push:
+    branches: 
+      - master
 
 jobs:
   build:
-    name: Build
+    name: Publish
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ env.NODE_VERSION }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-    - name: npm install and build
+    - name: git subtree
       run: |
-        # Build the project
-        npm install
-        npm run build
+        git subtree push --prefix dist origin gh-pages
