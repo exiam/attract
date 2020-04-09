@@ -1,4 +1,4 @@
-name: Publish
+name: Build and Deploy
 
 on:
   push:
@@ -6,11 +6,20 @@ on:
       - master
 
 jobs:
-  build:
-    name: Publish
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: git subtree
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+          persist-credentials: false
+    - name: Install and Build
       run: |
-        git subtree push --prefix dist origin gh-pages
+        npm install
+        npm run build
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: dist
