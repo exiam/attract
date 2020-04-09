@@ -1,7 +1,7 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  mode: process.env === 'production' ? 'production' : 'development',
   entry: './src/index.ts',
   module: {
     rules: [
@@ -16,12 +16,11 @@ module.exports = {
     extensions: ['.ts', '.js'],
   },
   output: {
-    filename: 'bundle.[contenthash].js',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: __dirname,
     port: 9000,
   },
-  plugins: [new HtmlWebpackPlugin({ template: 'index.html' })],
 };
