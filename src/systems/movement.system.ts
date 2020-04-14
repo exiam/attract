@@ -1,6 +1,7 @@
 import System from './system';
 import Movable from '../components/movable.component';
-import Transform from '../components/transform.component';
+import Player from '../entities/player.entity';
+import Renderable from '../components/renderable.component';
 
 class MovementSystem extends System {
   public execute(dt: number) {
@@ -8,7 +9,7 @@ class MovementSystem extends System {
 
     entities.forEach(entity => {
       const movement = entity.getComponent(Movable);
-      const { position } = entity.getComponent(Transform);
+      const { position } = entity.getComponent(Renderable);
 
       if (movement.destination) {
         const toPointX = movement.destination.x - position.x;
@@ -16,6 +17,13 @@ class MovementSystem extends System {
 
         position.x += toPointX / movement.latency;
         position.y += toPointY / movement.latency;
+
+        if (entity.hasTag('player')) {
+          (entity as Player).score += Math.round(
+            Math.abs(toPointX / movement.latency) +
+              Math.abs(toPointX / movement.latency),
+          );
+        }
       }
 
       if (movement.velocity) {
@@ -24,11 +32,9 @@ class MovementSystem extends System {
       }
 
       // Check boundaries
-      if (position.y > this.game.canvas.height) {
-        if (!entity.hasTag('player')) {
-          this.entityManager.removeEntity(entity);
-          return;
-        }
+      if (position.y > this.game.canvas.height && !entity.hasTag('player')) {
+        this.entityManager.removeEntity(entity);
+        return;
       }
 
       if (position.x > this.game.canvas.width) {
@@ -42,7 +48,7 @@ class MovementSystem extends System {
 
 MovementSystem.queries = {
   movable: {
-    components: [Movable, Transform],
+    components: [Movable, Renderable],
   },
 };
 

@@ -2,26 +2,31 @@ import Entity from '../entities/entity';
 import Game from '../Game';
 import System from '../systems/system';
 import EntityManager from '../managers/entity.manager';
-import { ISystemConstructor } from '../types/system';
+import { ISystemConstructor, SystemTypeEnum } from '../types/system.types';
 import SystemManager from '../managers/system.manager';
+import CollisionManager from '../managers/collision.manager';
 
-export default class Scene {
+export default abstract class Scene {
+  public static sceneKey: string = undefined;
   public static systems: ISystemConstructor<System>[];
 
   public game: Game;
   public entityManager: EntityManager;
   public systemManager: SystemManager;
+  public collisionManager: CollisionManager;
 
   constructor(game: Game) {
     this.game = game;
     this.entityManager = new EntityManager();
     this.systemManager = new SystemManager();
 
-    (this.constructor as any).systems.forEach(
-      (SystemClass: ISystemConstructor<System>) => {
-        this.systemManager.registerSystem(new SystemClass(this));
-      },
-    );
+    if ((<typeof Scene>this.constructor).systems) {
+      (<typeof Scene>this.constructor).systems.forEach(
+        (SystemClass: ISystemConstructor<System>) => {
+          this.systemManager.registerSystem(new SystemClass(this));
+        },
+      );
+    }
   }
 
   /**
@@ -36,6 +41,9 @@ export default class Scene {
     return this;
   }
 
+  start?(prevScene?: Scene): void;
+  end?(): void;
+
   /**
    * Update scene by executing systems.
    *
@@ -43,11 +51,22 @@ export default class Scene {
    * @memberof Scene
    */
   public update(dt: number) {
-    this.systemManager.systems.forEach(system => {
+    this.systemManager.systems[SystemTypeEnum.LOGIC].forEach(system => {
       if (!system.initialized) {
         system.initialize();
       }
 
+      system.execute(dt);
+    });
+  }
+
+  /**
+   * Render scene with render systems.
+   *
+   * @memberof Scene
+   */
+  public render(dt: number) {
+    this.systemManager.systems[SystemTypeEnum.RENDER].forEach(system => {
       system.execute(dt);
     });
   }

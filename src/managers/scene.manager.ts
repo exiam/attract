@@ -1,10 +1,12 @@
 import Game from '../Game';
-import { IScene, AbstractSceneConstructor } from '../types/scene.d';
+import { AbstractSceneConstructor } from '../types/scene.types';
+import Scene from '../scenes/scene';
+import { SystemTypeEnum } from '../types/system.types';
 
 export default class SceneManager {
   public game: Game;
-  public scenes: { [key: string]: IScene };
-  public currentScene: IScene;
+  public scenes: { [key: string]: AbstractSceneConstructor };
+  public currentScene: Scene;
 
   public lastTime: number;
 
@@ -12,33 +14,31 @@ export default class SceneManager {
     this.game = game;
 
     this.scenes = {};
-    this.load(Scenes);
+    for (const SceneClass of Scenes) {
+      this.scenes[SceneClass.sceneKey] = SceneClass;
+    }
 
     this.lastTime = 0;
   }
 
-  public load(Scenes: AbstractSceneConstructor[]) {
-    for (const Scene of Scenes) {
-      const instance = new Scene(this.game);
-      this.scenes[instance.sceneKey] = instance;
-    }
-  }
-
   public run(scene: string) {
-    if (
-      this.currentScene != null &&
-      typeof this.currentScene.end !== 'undefined'
-    ) {
-      this.currentScene.end();
+    let prevScene: Scene = undefined;
+    if (this.currentScene != null) {
+      if (typeof this.currentScene.end !== 'undefined') {
+        this.currentScene.end();
+      }
+
+      prevScene = this.currentScene;
     }
 
-    this.currentScene = this.scenes[scene];
-    this.currentScene.start();
+    this.currentScene = new this.scenes[scene](this.game);
+    this.currentScene.start(prevScene);
 
     this.loop();
   }
 
   public loop() {
+    this.game.stats.begin();
     const now = performance.now();
 
     // Render
@@ -49,14 +49,18 @@ export default class SceneManager {
       this.game.canvas.height,
     );
 
-    const delta = now - this.lastTime;
+    const delta = (now - this.lastTime) / 1000;
 
-    this.currentScene.update(delta / 1000);
+    this.currentScene.update(delta);
+    this.currentScene.render(delta);
 
     this.lastTime = now;
+    this.game.stats.end();
 
-    requestAnimationFrame(() => {
-      this.loop();
-    });
+    if (this.currentScene.systemManager.hasSystemFor(SystemTypeEnum.LOGIC)) {
+      requestAnimationFrame(() => {
+        this.loop();
+      });
+    }
   }
 }

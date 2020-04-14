@@ -1,13 +1,18 @@
 import Scene from './scene';
+import { GameScene } from './game.scene';
+import Player from '../entities/player.entity';
 
-export class MenuScene extends Scene {
-  public static sceneKey = 'menu';
+export class GameOverScene extends Scene {
+  public static sceneKey = 'gameover';
+  public score: number = 0;
 
   public clickCallback = () => {
-    this.game.switchScene('game');
+    this.game.switchScene('menu');
   };
 
-  public start() {
+  public start(prevScene: GameScene) {
+    const player = prevScene.entityManager.findOneByTags<Player>(['player']);
+    this.score = player.score;
     this.game.canvas.addEventListener('click', this.clickCallback);
   }
 
@@ -16,7 +21,7 @@ export class MenuScene extends Scene {
     this.game.ctx.fillStyle = '#444444';
     this.game.ctx.font = '32px Georgia';
     this.game.ctx.fillText(
-      'Attract',
+      'Game Over',
       this.game.canvas.width / 2 - 100,
       this.game.canvas.height / 2,
     );
@@ -24,9 +29,9 @@ export class MenuScene extends Scene {
     // Indication
     this.game.ctx.font = '16px Georgia';
     this.game.ctx.fillText(
-      'Click to play',
+      `Score: ${this.score}`,
       this.game.canvas.width / 2 + 10,
-      this.game.canvas.height / 2,
+      this.game.canvas.height / 2 + 60,
     );
   }
 
@@ -34,3 +39,4 @@ export class MenuScene extends Scene {
     this.game.canvas.removeEventListener('click', this.clickCallback);
   }
 }
+

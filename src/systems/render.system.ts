@@ -1,16 +1,23 @@
 import Renderable from '../components/renderable.component';
 import System from './system';
-import Transform from '../components/transform.component';
+import Block from '../entities/block.entity';
+import { SystemTypeEnum } from '../types/system.types';
 
 class RenderSystem extends System {
+  public static type = SystemTypeEnum.RENDER;
+
   public execute() {
     const entities = this.query('renderable');
 
     entities.forEach(entity => {
-      const render = entity.getComponent(Renderable);
-      const { position } = entity.getComponent(Transform);
+      const { position, ...render } = entity.getComponent(Renderable);
 
-      this.game.ctx.fillStyle = render.color;
+      if (entity.hasTag('block') && (entity as Block).highlight) {
+        this.game.ctx.fillStyle = 'red';
+      } else {
+        this.game.ctx.fillStyle = render.color;
+      }
+
       this.game.ctx.fillRect(
         position.x,
         position.y,
@@ -23,7 +30,7 @@ class RenderSystem extends System {
 
 RenderSystem.queries = {
   renderable: {
-    components: [Renderable, Transform]
+    components: [Renderable]
   }
 };
 

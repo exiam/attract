@@ -1,6 +1,6 @@
 import Entity from '../entities/entity';
 import { uuidv4 } from '../utils/uuid';
-import { IComponentConstructor } from '../types/component';
+import { IComponentConstructor } from '../types/component.types';
 
 export default class EntityManager {
   public entities: { [key: string]: Entity };
@@ -81,11 +81,35 @@ export default class EntityManager {
     const { name: firstComponent } = components[0];
     return this.index[firstComponent].reduce((results, entityId) => {
       const entity = this.entities[entityId];
-      if (components.every(({ name }) => entity.hasComponent(name))) {
+      if (
+        components.length === 1 ||
+        components.every(({ name }) => entity.hasComponent(name))
+      ) {
         results.push(entity);
       }
       return results;
     }, []);
+  }
+
+  /**
+   * Return first entity with given tags.
+   *
+   * @param {string[]} tags
+   * @returns {Entity[]}
+   * @memberof EntityManager
+   */
+  public findOneByTags<T extends Entity>(tags: string[]): T | null {
+    let entity = null;
+
+    tags.some(tag => {
+      if (this.tagIndex[tag] && this.tagIndex[tag].length > 0) {
+        entity = this.entities[this.tagIndex[tag][0]];
+        return true;
+      }
+      return false;
+    });
+
+    return entity;
   }
 
   /**

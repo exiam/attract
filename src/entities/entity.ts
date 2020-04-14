@@ -1,4 +1,4 @@
-import { IComponentConstructor } from '../types/component.d';
+import { IComponentConstructor } from '../types/component.types';
 import EventManager from '../managers/event.manager';
 
 export default abstract class Entity {
@@ -44,7 +44,7 @@ export default abstract class Entity {
    * @returns
    * @memberof Entity
    */
-  public getComponent<T>(Component: IComponentConstructor<T>) {
+  public getComponent<T>(Component: IComponentConstructor<T>): T {
     return this.components[Component.name] || null;
   }
 
