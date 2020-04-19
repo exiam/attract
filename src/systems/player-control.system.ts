@@ -16,20 +16,24 @@ class PlayerControlSystem extends System {
     const player = this.query('player')[0] as Player;
     const movable = player.getComponent(Movable);
 
-    movable.destination = { ...this.game.inputs.mouse.click };
+    movable.destination = this.game.inputs.mouse.click;
   }
 
   public execute(dt: number) {
     const player = this.query('player')[0] as Player;
 
-    const { position, ...render } = player.getComponent(Renderable);
+    const {
+      body: { position },
+    } = player.getComponent(Renderable);
+    const { x: posX, y: posY } = position;
 
-    const posX = position.x + render.width / 2;
-    const posY = position.y + render.height / 2;
+    const mouseX = this.game.inputs.mouse.position.x;
+    const mouseY = this.game.inputs.mouse.position.y;
 
-    const toMouseX = this.game.inputs.mouse.position.x - posX;
-    const toMouseY = this.game.inputs.mouse.position.y - posY;
+    const toMouseX = mouseX - posX;
+    const toMouseY = mouseY - posY;
 
+    // Render line
     this.game.ctx.beginPath();
     this.game.ctx.moveTo(posX, posY);
     this.game.ctx.lineTo(posX + toMouseX, posY + toMouseY);

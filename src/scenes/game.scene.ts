@@ -5,36 +5,17 @@ import SpawnSystem from '../systems/spawn.system';
 import MovementSystem from '../systems/movement.system';
 import PlayerControlSystem from '../systems/player-control.system';
 import CollisionManager from '../managers/collision.manager';
-import Collider from '../components/collider.component';
-import CollisionSystem from '../systems/collision.system';
-import Block from '../entities/block.entity';
+import { Engine } from 'matter-js';
+import EngineSystem from '../systems/engine.system';
 
 class GameScene extends Scene {
   public static sceneKey = 'game';
 
-  public collisionManager: CollisionManager;
-
   public start() {
+    this.engine = Engine.create();
+    this.engine.world.gravity.y = 0.5;
     this.collisionManager = new CollisionManager(this.game);
     this.addEntity(new Player());
-  }
-
-  public update(dt: number) {
-    this.collisionManager.buildTree(
-      this.entityManager.findByComponents([Collider]),
-    );
-
-    if (this.game.debug) {
-      this.collisionManager.renderTree(this.game.ctx);
-
-      const blocks = this.entityManager.findByTags(['block']) as Block[];
-      for (const block of blocks) {
-        block.highlight = false;
-      }
-    }
-
-    
-    super.update(dt);
   }
 
   public render(dt: number) {
@@ -50,11 +31,11 @@ class GameScene extends Scene {
 }
 
 GameScene.systems = [
-  RenderSystem,
   SpawnSystem,
   MovementSystem,
+  EngineSystem,
   PlayerControlSystem,
-  CollisionSystem,
+  RenderSystem,
 ];
 
 export { GameScene };

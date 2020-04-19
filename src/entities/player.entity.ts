@@ -2,6 +2,7 @@ import Renderable from '../components/renderable.component';
 import Entity from './entity';
 import Movable from '../components/movable.component';
 import Collider from '../components/collider.component';
+import { Bodies } from 'matter-js';
 
 const PLAYER_WIDTH = 16;
 const PLAYER_HEIGHT = 16;
@@ -14,8 +15,15 @@ class Player extends Entity {
 
     this.score = 0;
 
+    const defaultPosition = { x: 50, y: 50 };
     this.addComponent(Renderable, {
-      position: { x: 0, y: 0 },
+      body: Bodies.rectangle(
+        defaultPosition.x,
+        defaultPosition.y,
+        PLAYER_WIDTH,
+        PLAYER_HEIGHT,
+      ),
+      position: defaultPosition,
       width: PLAYER_WIDTH,
       height: PLAYER_HEIGHT,
       color: '#69D2F5',
