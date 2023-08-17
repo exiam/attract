@@ -6,23 +6,15 @@
   "author": "Exiam <exiam@pm.me>",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "serve": "webpack-dev-server"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@types/matter-js": "^0.14.2",
-    "@typescript-eslint/eslint-plugin": "^2.27.0",
-    "@typescript-eslint/parser": "^2.27.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.1",
-    "eslint-plugin-prettier": "^3.1.2",
-    "html-webpack-plugin": "^4.2.0",
-    "prettier": "^1.19.1",
-    "ts-loader": "^6.2.2",
-    "typescript": "^3.8.3",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "prettier": "^3.0.2",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.9"
   },
   "dependencies": {
     "matter-js": "^0.14.2",

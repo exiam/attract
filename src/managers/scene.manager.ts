@@ -6,7 +6,7 @@ import { SystemTypeEnum } from '../types/system.types';
 export default class SceneManager {
   public game: Game;
   public scenes: { [key: string]: AbstractSceneConstructor };
-  public currentScene: Scene;
+  public currentScene!: Scene;
 
   public lastTime: number;
 
@@ -22,7 +22,7 @@ export default class SceneManager {
   }
 
   public run(scene: string) {
-    let prevScene: Scene = undefined;
+    let prevScene: Scene | undefined = undefined;
     if (this.currentScene != null) {
       if (typeof this.currentScene.end !== 'undefined') {
         this.currentScene.end();
@@ -32,7 +32,7 @@ export default class SceneManager {
     }
 
     this.currentScene = new this.scenes[scene](this.game);
-    this.currentScene.start(prevScene);
+    this.currentScene.start?.(prevScene);
 
     this.loop();
   }

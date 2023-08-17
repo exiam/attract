@@ -9,14 +9,14 @@ import Renderable from '../components/renderable.component';
 import { World, Engine } from 'matter-js';
 
 export default abstract class Scene {
-  public static sceneKey: string = undefined;
+  public static sceneKey: string;
   public static systems: ISystemConstructor<System>[];
 
   public game: Game;
   public entityManager: EntityManager;
   public systemManager: SystemManager;
-  public collisionManager: CollisionManager;
-  public engine: Engine;
+  public collisionManager!: CollisionManager;
+  public engine!: Engine;
 
   constructor(game: Game) {
     this.game = game;

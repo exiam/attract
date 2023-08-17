@@ -6,7 +6,7 @@ import Renderable from '../components/renderable.component';
 
 export default class CollisionManager {
   public game: Game;
-  public tree: QuadTree;
+  public tree!: QuadTree;
 
   constructor(game: Game) {
     this.game = game;

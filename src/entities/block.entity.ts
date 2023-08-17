@@ -21,7 +21,7 @@ class Block extends Entity {
       moving: true,
     });
 
-    const defaultPosition = initialValues.position || { x: 0, y: 0 };
+    const defaultPosition = initialValues?.position || { x: 0, y: 0 };
     this.addComponent(Renderable, {
       body: Bodies.rectangle(
         defaultPosition.x,

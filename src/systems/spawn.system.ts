@@ -6,7 +6,7 @@ import Renderable from '../components/renderable.component';
 
 const SPAWN_INTERVAL = 500;
 export default class SpawnSystem extends System {
-  public spawnTimer: Timer;
+  public spawnTimer!: Timer;
 
   public initialize() {
     this.spawnTimer = new Timer(SPAWN_INTERVAL);

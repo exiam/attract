@@ -19,9 +19,14 @@ class CollisionSystem extends System {
     return x1 <= x2 + w2 && x2 <= x1 + w1 && y1 <= y2 + h2 && y2 <= y1 + h1;
   }
 
-  public execute(dt: number) {
+  public execute(_dt: number) {
     // Only check collision on block around player
     const player = this.entityManager.findOneByTags<Player>(['player']);
+
+    if (!player) {
+      return;
+    }
+
     const playerNode = this.scene.collisionManager.tree.findNodeById(player.id);
 
     if (!playerNode) {

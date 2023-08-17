@@ -5,7 +5,7 @@ import Renderable from '../components/renderable.component';
 import { Body } from 'matter-js';
 
 class MovementSystem extends System {
-  public execute(dt: number) {
+  public execute(_dt: number) {
     const entities = this.query('movable');
 
     entities.forEach(entity => {

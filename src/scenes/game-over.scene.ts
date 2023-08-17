@@ -11,7 +11,9 @@ export class GameOverScene extends Scene {
   };
 
   public start(prevScene: GameScene) {
-    const player = prevScene.entityManager.findOneByTags<Player>(['player']);
+    const player = prevScene.entityManager.findOneByTags<Player>([
+      'player',
+    ]) as Player;
     this.score = player.score;
     this.game.canvas.addEventListener('click', this.clickCallback);
   }
@@ -39,4 +41,3 @@ export class GameOverScene extends Scene {
     this.game.canvas.removeEventListener('click', this.clickCallback);
   }
 }
-

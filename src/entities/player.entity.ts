@@ -32,7 +32,7 @@ class Player extends Entity {
     this.addComponent(Collider, { width: PLAYER_WIDTH, height: PLAYER_HEIGHT });
   }
 
-  public onColliderHit(hit: Entity) {}
+  public onColliderHit(_hit: Entity) {}
 }
 
 Player.tags = ['player'];

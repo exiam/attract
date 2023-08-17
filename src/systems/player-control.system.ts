@@ -19,7 +19,7 @@ class PlayerControlSystem extends System {
     movable.destination = this.game.inputs.mouse.click;
   }
 
-  public execute(dt: number) {
+  public execute(_dt: number) {
     const player = this.query('player')[0] as Player;
 
     const {

@@ -19,9 +19,9 @@ const DEBUG_DEPTH_COLORS = ['#bbe1fa', '#3282b8', '#0f4c75', '#1b262c'];
 
 export class QuadTree {
   public root: Node;
-  public bounds: IBounds;
+  public bounds!: IBounds;
 
-  constructor(bounds: IBounds, maxChildren?: number) {
+  constructor(bounds: IBounds, _maxChildren?: number) {
     this.root = new Node(bounds);
   }
 

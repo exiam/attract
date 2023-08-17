@@ -21,7 +21,9 @@ class GameScene extends Scene {
   public render(dt: number) {
     super.render(dt);
 
-    const player = this.entityManager.findOneByTags<Player>(['player']);
+    const player = this.entityManager.findOneByTags<Player>([
+      'player',
+    ]) as Player;
 
     // Title
     this.game.ctx.fillStyle = '#444444';

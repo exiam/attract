@@ -37,15 +37,13 @@ export default class EntityManager {
       this.index[component].push(entity.id);
     });
 
-    if ((<typeof Entity>entity.constructor).tags) {
-      (<typeof Entity>entity.constructor).tags.forEach(tag => {
-        if (!this.tagIndex[tag]) {
-          this.tagIndex[tag] = [];
-        }
+    (<typeof Entity>entity.constructor).tags?.forEach(tag => {
+      if (!this.tagIndex[tag]) {
+        this.tagIndex[tag] = [];
+      }
 
-        this.tagIndex[tag].push(entity.id);
-      });
-    }
+      this.tagIndex[tag].push(entity.id);
+    });
   }
 
   /**
@@ -60,12 +58,10 @@ export default class EntityManager {
       this.index[component].splice(index, 1);
     });
 
-    if ((<typeof Entity>entity.constructor).tags) {
-      (<typeof Entity>entity.constructor).tags.forEach(tag => {
-        const index = this.tagIndex[tag].indexOf(entity.id);
-        this.tagIndex[tag].splice(index, 1);
-      });
-    }
+    (<typeof Entity>entity.constructor).tags?.forEach(tag => {
+      const index = this.tagIndex[tag].indexOf(entity.id);
+      this.tagIndex[tag].splice(index, 1);
+    });
 
     delete this.entities[entity.id];
   }
@@ -88,7 +84,7 @@ export default class EntityManager {
         results.push(entity);
       }
       return results;
-    }, []);
+    }, [] as Entity[]);
   }
 
   /**

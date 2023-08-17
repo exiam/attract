@@ -4,13 +4,13 @@ import EventManager from '../managers/event.manager';
 export default abstract class Entity {
   public static tags?: string[];
 
-  public id: string;
+  public id!: string;
   public components: { [key: string]: any };
 
   constructor() {
     this.components = {};
   }
-  
+
   /**
    * Add component to entity.
    *
@@ -20,7 +20,10 @@ export default abstract class Entity {
    * @returns
    * @memberof Entity
    */
-  public addComponent<T>(Component: IComponentConstructor<T>, initialValue?: T) {
+  public addComponent<T extends {}>(
+    Component: IComponentConstructor<T>,
+    initialValue?: T,
+  ) {
     const component = new Component();
 
     if (typeof initialValue !== 'undefined') {
@@ -60,6 +63,6 @@ export default abstract class Entity {
    * @memberof Entity
    */
   public hasTag(tag: string): boolean {
-    return (<typeof Entity>this.constructor).tags.includes(tag);
+    return (<typeof Entity>this.constructor).tags?.includes(tag) || false;
   }
 }
