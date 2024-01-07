@@ -1,7 +1,7 @@
-import Renderable from '../components/renderable.component';
+import Renderable from '../lib/components/renderable.component';
 import System from './system';
 import Block from '../entities/block.entity';
-import { SystemTypeEnum } from '../types/system.types';
+import { SystemTypeEnum } from '../lib/types/system.types';
 
 class RenderSystem extends System {
   public static type = SystemTypeEnum.RENDER;

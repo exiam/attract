@@ -1,6 +1,6 @@
-import { TSystemQueries, SystemTypeEnum } from '../types/system.types';
-import Entity from '../entities/entity';
-import Scene from '../scenes/scene';
+import { TSystemQueries, SystemTypeEnum } from '../lib/types/system.types';
+import Entity from '../lib/entity';
+import Scene from '../lib/scene';
 
 export default abstract class System {
   public static type: SystemTypeEnum = SystemTypeEnum.LOGIC;

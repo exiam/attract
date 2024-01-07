@@ -1,6 +1,6 @@
 import Game from '../Game';
 import { AbstractSceneConstructor } from '../types/scene.types';
-import Scene from '../scenes/scene';
+import Scene from '../scene';
 import { SystemTypeEnum } from '../types/system.types';
 
 export default class SceneManager {

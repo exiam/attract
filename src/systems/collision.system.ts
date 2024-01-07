@@ -1,7 +1,7 @@
 import System from './system';
-import Collider from '../components/collider.component';
-import Entity from '../entities/entity';
-import Renderable from '../components/renderable.component';
+import Collider from '../lib/components/collider.component';
+import Entity from '../lib/entity';
+import Renderable from '../lib/components/renderable.component';
 import Player from '../entities/player.entity';
 import Block from '../entities/block.entity';
 

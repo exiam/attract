@@ -1,5 +1,5 @@
-import { IComponentConstructor } from '../types/component.types';
-import EventManager from '../managers/event.manager';
+import { IComponentConstructor } from '../lib/types/component.types';
+import EventManager from '../lib/managers/event.manager';
 
 export default abstract class Entity {
   public static tags?: string[];

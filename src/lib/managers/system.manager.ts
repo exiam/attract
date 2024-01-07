@@ -1,4 +1,4 @@
-import System from "../systems/system";
+import System from "../../systems/system";
 import { SystemTypeEnum } from "../types/system.types";
 
 export default class SystemManager {

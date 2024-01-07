@@ -1,10 +1,10 @@
 import Player from '../entities/player.entity';
-import Scene from './scene';
+import Scene from '../lib/scene';
 import RenderSystem from '../systems/render.system';
 import SpawnSystem from '../systems/spawn.system';
 import MovementSystem from '../systems/movement.system';
 import PlayerControlSystem from '../systems/player-control.system';
-import CollisionManager from '../managers/collision.manager';
+import CollisionManager from '../lib/managers/collision.manager';
 import { Engine } from 'matter-js';
 import EngineSystem from '../systems/engine.system';
 

@@ -1,7 +1,7 @@
 import System from './system';
 import Player from '../entities/player.entity';
-import Renderable from '../components/renderable.component';
-import Movable from '../components/movable.component';
+import Renderable from '../lib/components/renderable.component';
+import Movable from '../lib/components/movable.component';
 
 class PlayerControlSystem extends System {
   public initialize() {

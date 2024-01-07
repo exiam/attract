@@ -1,4 +1,4 @@
-import Scene from './scene';
+import Scene from '../lib/scene';
 
 export class MenuScene extends Scene {
   public static sceneKey = 'menu';

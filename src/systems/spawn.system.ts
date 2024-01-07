@@ -1,8 +1,8 @@
 import System from './system';
 import Block from '../entities/block.entity';
-import Timer from '../utils/timer';
+import Timer from '../lib/utils/timer';
 import { Body } from 'matter-js';
-import Renderable from '../components/renderable.component';
+import Renderable from '../lib/components/renderable.component';
 
 const SPAWN_INTERVAL = 500;
 export default class SpawnSystem extends System {

@@ -1,4 +1,4 @@
-import Scene from './scene';
+import Scene from '../lib/scene';
 import { GameScene } from './game.scene';
 import Player from '../entities/player.entity';
 

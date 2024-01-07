@@ -1,7 +1,7 @@
 import System from './system';
-import Movable from '../components/movable.component';
+import Movable from '../lib/components/movable.component';
 import Player from '../entities/player.entity';
-import Renderable from '../components/renderable.component';
+import Renderable from '../lib/components/renderable.component';
 import { Body } from 'matter-js';
 
 class MovementSystem extends System {

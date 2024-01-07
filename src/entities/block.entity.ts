@@ -1,7 +1,7 @@
-import Entity from './entity';
-import Renderable from '../components/renderable.component';
-import Movable from '../components/movable.component';
-import Collider from '../components/collider.component';
+import Entity from '../lib/entity';
+import Renderable from '../lib/components/renderable.component';
+import Movable from '../lib/components/movable.component';
+import Collider from '../lib/components/collider.component';
 import { Bodies } from 'matter-js';
 
 const BLOCK_WIDTH = 16;

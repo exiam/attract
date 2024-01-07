@@ -1,11 +1,11 @@
-import Entity from '../entities/entity';
-import Game from '../Game';
+import Entity from './entity';
+import Game from './Game';
 import System from '../systems/system';
-import EntityManager from '../managers/entity.manager';
-import { ISystemConstructor, SystemTypeEnum } from '../types/system.types';
-import SystemManager from '../managers/system.manager';
-import CollisionManager from '../managers/collision.manager';
-import Renderable from '../components/renderable.component';
+import EntityManager from './managers/entity.manager';
+import { ISystemConstructor, SystemTypeEnum } from '../lib/types/system.types';
+import SystemManager from './managers/system.manager';
+import CollisionManager from './managers/collision.manager';
+import Renderable from './components/renderable.component';
 import { World, Engine } from 'matter-js';
 
 export default abstract class Scene {

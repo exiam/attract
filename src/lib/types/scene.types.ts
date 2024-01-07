@@ -1,5 +1,5 @@
 import Game from '../Game';
-import Scene from '../scenes/scene';
+import Scene from '../lib/scene';
 
 export interface AbstractSceneConstructor {
   new (game: Game): Scene;

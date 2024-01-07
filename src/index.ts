@@ -1,5 +1,5 @@
 /// <reference path="./stats.js.d.ts">
-import Game from './Game';
+import Game from './lib/Game';
 import { MenuScene } from './scenes/menu.scene';
 import { GameScene } from './scenes/game.scene';
 import { GameOverScene } from './scenes/game-over.scene';

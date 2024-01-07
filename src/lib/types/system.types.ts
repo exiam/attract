@@ -1,4 +1,4 @@
-import Scene from '../scenes/scene';
+import Scene from '../scene';
 import { IComponentConstructor } from './component.types';
 
 export type TSystemQuery = {
